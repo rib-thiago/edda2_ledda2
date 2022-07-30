@@ -6,11 +6,17 @@ Os exercícios são da plataforma URI, mas você pode implementar na sua IDE pre
 Os exercícios são:
 
 1002 - Área do Círculo: https://www.urionlinejudge.com.br/judge/pt/problems/view/1002
+
 1008 - Salário: https://www.urionlinejudge.com.br/judge/pt/problems/view/1008
+
 1009 - Salário com Bônus: https://www.urionlinejudge.com.br/judge/pt/problems/view/1009
+
 1013 - O maior: https://www.urionlinejudge.com.br/judge/pt/problems/view/1013
+
 1173 - Preenchimento de Vetor I: https://www.urionlinejudge.com.br/judge/pt/problems/view/1173
+
 1175 - Troca em Vetor I: https://www.urionlinejudge.com.br/judge/pt/problems/view/1175
+
 1182 - Coluna na Matriz: https://www.urionlinejudge.com.br/judge/pt/problems/view/1182
  
 Importante:
