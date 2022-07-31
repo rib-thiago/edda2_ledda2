@@ -1,3 +1,4 @@
+#!/usr/bin/tcc -run
 /*
 Instituto Federal de São Paulo - Campus Pirituba
 Laboratório de Estrutura de Dados e Programação (EDDA2 e LEDDA2)
