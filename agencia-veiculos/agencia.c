@@ -71,6 +71,7 @@ int main (int argc, char *argv[ ]){
 		}
 
 		printf("\nPressione 0 (zero) para sair\n");
+		opcao = getchar();
 	} while (opcao == '0');
 
 
@@ -93,22 +94,23 @@ void display (void){
 }
 
 Carro cadastrar() { 
-    //limpabuffer();
+    limpabuffer();
 	Carro C;
     printf("\nPlaca do Carro: \n");
 	fgets(C.placa, PLACA, stdin);
+	limpabuffer():
 	printf("\nAno de Fabricação: \n");
 	fgets(C.ano, ANO, stdin);
-	//limpabuffer();
+	limpabuffer();
 	printf("\nMarca: \n");
 	fgets(C.marca, LEN, stdin);
-	//limpabuffer();
+	limpabuffer();
 	printf("\nModelo: \n");
 	fgets(C.modelo, LEN, stdin);
-	//limpabuffer();
+	limpabuffer();
 	printf("\nCor: \n");
 	fgets(C.cor, LEN, stdin);
-	//limpabuffer();
+	limpabuffer();
 	printf("\nValor de Venda (Em Reais): \n");
 	scanf("%f", &C.valor);
 	limpabuffer();
