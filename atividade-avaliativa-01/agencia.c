@@ -113,7 +113,7 @@ void buscarAno (int *i, Carro *carPtr)
 
     range = (int *)malloc(*i * sizeof(int));
 
-	if (!range) {
+    if (!range) {
         printf("Erro: Memoria Insuficiente");
         EXIT_FAILURE;
     }
