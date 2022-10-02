@@ -1,129 +1,224 @@
+/*
+  Instituto Federal de São Paulo - Campus Pirituba
+  Laboratório de Estrutura de Dados e Programação (EDDA2 e LEDDA2)
+  
+  Atividade prática avaliativa
+
+  Thiago Bernardes Ribeiro - PT3008452
+  Data: 01 OUT 2022 22:38
+*/
+
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include <locale.h>
 
-
-
-#define TAM 100
-#define PLACA 8
-#define ANO 4
-#define LEN 10
-
-
 typedef struct {
 
- char placa[PLACA];
- char ano[ANO];
- char marca[LEN];
- char modelo[LEN];
- char cor[LEN];
- float valor;
+    char placa[10];
+    int ano;
+    char marca[20];
+    char modelo[20];
+    char cor[15];
+    float valor;
 
 } Carro;
 
-void limpabuffer (void);
-void display (void);
-Carro cadastrar(void);
-Carro exibir (Carro C);
-void listar (Carro *cadastro[]);
+void limpabuffer (void)
+{
 
-int main (int argc, char *argv[ ]){
+    char c;
+    while ((c = getchar()) != '\n' );
+}
 
-	setlocale(LC_ALL, "Portuguese");
+void display (void)
+{
 
-	char menu = '0';
-	int opcao = 1;
-	int cont = 0;
-	Carro *cadastro;
-
-	cadastro = (Carro *)calloc(TAM, sizeof(Carro));
-
-	if (!cadastro) { 
-		printf("Erro: Memoria Insuficiente");
-		EXIT_FAILURE;
-  	} 
-
-	do {
-
-		display();
-		menu = getchar();
- 
-		switch (menu) {
-		
-			case '1':
-				cadastro[cont] = cadastrar();
-				cont ++;
-				break;
-			case '2':
-				listar(&cadastro);
-				break;
-			case '3':
-				//buscarPlaca();
-				break;
-			case '4':
-				//buscarAno();
-				break;
-			case '5':
-				break;
-			default:
-				printf("\nOpção Inválida! Escolha um número entre 1 e 5\n");
-		}
-
-		printf("\nPressione 0 (zero) para sair\n");
-		opcao = getchar();
-	} while (opcao == '0');
-
-
-return 0;
+    printf("\33[H\33[2J");
+    printf("Menu:\n");
+    printf("1 - Cadastrar novo veículo\n2 - Listar Veículos\n");
+    printf("3 - Buscar Veiculo por Placa\n4 - Buscar Veiculo por Ano de Fabricação\n5 - Sair\n");
 
 }
 
-void limpabuffer (void){
+void cadastrar(int *iPtr, Carro *carPtr)
+{
+    printf("\nPlaca do veículo: \n");
+    scanf("%s", carPtr[*(iPtr)-1].placa);
 
-  char c;																				
-	while ((c = getchar()) != '\n' );													
+    printf("\nAno de fabricação: \n");
+    scanf("%d", &carPtr[*(iPtr)-1].ano);
+
+    printf("\nMarca do veículo: \n");
+    scanf("%s", carPtr[*(iPtr)-1].marca);
+
+    printf("\nModelo do veículo: \n");
+    scanf("%s", carPtr[*(iPtr)-1].modelo);
+
+    printf("\nCor do veículo: \n");
+    scanf("%s", carPtr[*(iPtr)-1].cor);
+
+    printf("\nValor de venda: \n");
+    scanf("%f", &carPtr[*(iPtr)-1].valor);
 }
 
-void display (void){
+void listar(int *i, Carro *carPtr)
+{
 
- printf("Menu:\n");
- printf("1 - Cadastrar novo veículo\n2 - Listar Veículos\n");
- printf("3- Buscar Veiculo por Placa\n4 - Buscar Veiculo por Ano de Fabricação\n5 - Sair\n");
-
+    for (int j = 0; j < *i - 1; j++) {
+        printf("\nPlaca: %s", carPtr[j].placa);
+        printf("\nAno de fabricação: %d", carPtr[j].ano);
+        printf("\nMarca do veículo: %s", carPtr[j].marca);
+        printf("\nModelo do veículo: %s", carPtr[j].modelo);
+        printf("\nCor do veículo: %s", carPtr[j].cor);
+        printf("\nValor de venda: %.2f", carPtr[j].valor);
+        printf("\n______________________");
+    }
 }
 
-Carro cadastrar() { 
-    limpabuffer();
-	Carro C;
-    printf("\nPlaca do Carro: \n");
-	fgets(C.placa, PLACA, stdin);
-	limpabuffer():
-	printf("\nAno de Fabricação: \n");
-	fgets(C.ano, ANO, stdin);
-	limpabuffer();
-	printf("\nMarca: \n");
-	fgets(C.marca, LEN, stdin);
-	limpabuffer();
-	printf("\nModelo: \n");
-	fgets(C.modelo, LEN, stdin);
-	limpabuffer();
-	printf("\nCor: \n");
-	fgets(C.cor, LEN, stdin);
-	limpabuffer();
-	printf("\nValor de Venda (Em Reais): \n");
-	scanf("%f", &C.valor);
-	limpabuffer();
-    return C; 
+void buscarPlaca(int *i, Carro *carPtr)
+{
+
+    char placa[10];
+
+    printf("\nDigite a placa a ser procurada: \n");
+    scanf("%s", placa);
+
+    int match, fimvetor = *i - 1;
+
+    for (int j = 0; j < *i - 1; j++) {
+
+        match = strcmp(placa, carPtr[j].placa);
+        if (match == 0) {
+            printf("\n________________________");
+            printf("\nPlaca: %s", carPtr[j].placa);
+            printf("\nAno de fabricação: %d", carPtr[j].ano);
+            printf("\nMarca do veículo: %s", carPtr[j].marca);
+            printf("\nModelo do veículo: %s", carPtr[j].modelo);
+            printf("\nCor do veículo: %s", carPtr[j].cor);
+            printf("\nValor de venda: %.2f", carPtr[j].valor);
+            printf("\n________________________");
+        } else {
+            if ((j + 1) == fimvetor)
+                printf("\nVeículo não encontrado!\n\n");
+        }
+    }
 }
 
-Carro exibir (Carro C){
-	printf("\nplaca: %s, ano de fabricação: %s, marca: %s, modelo: %s, cor: %s, valor de venda: %.2f\n",
-	C.placa, C.ano, C.marca, C.modelo, C.cor, C.valor);
+void buscarAno (int *i, Carro *carPtr)
+{
+    int *range; // Esse ponteiro guardará as posições que carPtr
+    int anoIni, anoFin, cont = 0;
+
+    range = (int *)malloc(*i * sizeof(int));
+    do {
+        printf("\nAno Inicial: \n");
+        scanf("%d", &anoIni);
+
+        printf("\nAno Final:\n");
+        scanf("%d", &anoFin);
+        if (anoIni > anoFin) {
+            printf("\nA data inicial precisa ser anterior à data final");
+        }
+    } while (anoIni > anoFin);
+
+    for (int j = 0; j < *i - 1; j++) {
+
+        if (carPtr[j].ano >= anoIni && carPtr[j].ano <= anoFin) {
+            range[cont] = j;
+            cont += 1;
+        }
+    }
+
+    if (cont > 0) {
+        for (int j = 0; j < cont; j++) {
+            printf("\n________________________");
+            printf("\nPlaca: %s", carPtr[range[j]].placa);
+            printf("\nAno de fabricação: %d", carPtr[range[j]].ano);
+            printf("\nMarca do veículo: %s", carPtr[range[j]].marca);
+            printf("\nModelo do veículo: %s", carPtr[range[j]].modelo);
+            printf("\nCor do veículo: %s", carPtr[range[j]].cor);
+            printf("\nValor de venda: %.2f", carPtr[range[j]].valor);
+            printf("\n________________________");
+        }
+    } else {
+        printf("\33[H\33[2J");
+        printf("\nNão há registros para os parâmetros informados!\n\n");
+    }
+
+    free (range);
 }
 
-void listar (Carro *cadastro[]){
-	for (int i = 0; i < TAM; i++){
-		exibir(*cadastro[i]);
-	}
+
+int main (int argc, char *argv[ ])
+{
+
+    setlocale(LC_ALL, "Portuguese");
+
+    int i = 1;
+    int opcao;
+    char menu;
+
+    int *iPtr;
+    Carro *carPtr;
+
+    iPtr = &i;
+    carPtr = (Carro *)malloc(i * sizeof(Carro));
+
+    if (!carPtr) {
+        printf("Erro: Memoria Insuficiente");
+        EXIT_FAILURE;
+    }
+
+    do {
+
+        display();
+        scanf("%c", &menu);
+        limpabuffer();
+
+        switch (menu) {
+
+        case '1':
+            printf("\33[H\33[2J");
+            cadastrar(&i, carPtr);
+            *iPtr = *iPtr + 1;
+            carPtr = (Carro *)realloc(carPtr, i * sizeof(Carro));
+            if (!carPtr) {
+                printf("Erro: Memoria Insuficiente");
+                EXIT_FAILURE;
+            }
+            break;
+
+        case '2':
+            printf("\33[H\33[2J");
+            listar(&i, carPtr);
+            break;
+
+        case '3':
+            printf("\33[H\33[2J");
+            buscarPlaca(&i, carPtr);
+            break;
+
+        case '4':
+            printf("\33[H\33[2J");
+            buscarAno(&i, carPtr);
+            break;
+
+        case '5':
+            // sair do programa
+            break;
+
+        default:
+            printf("\nOpção Inválida! Escolha um número entre 1 e 5\n");
+        }
+
+        printf("\nPressione qualquer teclar para retornar ao menu ou 0 (zero) para sair\n");
+        scanf("%d", &opcao);
+        limpabuffer();
+
+    } while (opcao != 0);
+
+    free (carPtr);
+    return EXIT_SUCCESS;
 }
